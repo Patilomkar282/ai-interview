@@ -62,7 +62,7 @@ export default function AdminDashboard() {
 
   const handleLogout = () => {
     logout();
-    window.location.href = 'http://localhost:5174/login';
+    window.location.href = 'https://www.smartprep.live/login';
   };
 
   const handleViewReport = async (id) => {

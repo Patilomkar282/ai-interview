@@ -159,7 +159,7 @@ const Dashboard = () => {
               <Play className="w-4 h-4 fill-white" /> New Interview
             </button>
             <button
-              onClick={() => { logout(); window.location.href = 'http://localhost:5174/login'; }}
+              onClick={() => { logout(); window.location.href = 'https://www.smartprep.live/login'; }}
               className="flex items-center gap-2 text-slate-500 hover:text-red-600 transition-colors px-3 py-2.5 rounded-xl hover:bg-red-50 font-medium text-sm"
             >
               <LogOut className="w-4 h-4" /> Logout
