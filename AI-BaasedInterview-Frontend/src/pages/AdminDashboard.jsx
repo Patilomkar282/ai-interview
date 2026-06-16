@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getAdminStats, getAdminInterviews, getInterviewFeedback } from '../api/admin';
 import { BarChart3, Users, Clock, Award, LogOut, ChevronRight, Search, LayoutDashboard, Settings as SettingsIcon, FileText, X, Sliders, Bell, Shield, ArrowLeft, ArrowRight, Save, CheckCircle } from 'lucide-react';
@@ -62,7 +62,7 @@ export default function AdminDashboard() {
 
   const handleLogout = () => {
     logout();
-    window.location.href = 'https://smartprep.live/login';
+    window.location.href = 'https://www.smartprep.live/login';
   };
 
   const handleViewReport = async (id) => {
@@ -455,7 +455,7 @@ export default function AdminDashboard() {
                   <ul className="space-y-4">
                     {selectedReport.strengths?.map((str, idx) => (
                       <li key={idx} className="text-sm font-medium text-emerald-800 flex items-start gap-3">
-                        <span className="text-emerald-500 mt-0.5 shrink-0">•</span> 
+                        <span className="text-emerald-500 mt-0.5 shrink-0">â€¢</span> 
                         <span className="leading-relaxed">{str}</span>
                       </li>
                     ))}
@@ -469,7 +469,7 @@ export default function AdminDashboard() {
                   <ul className="space-y-4">
                     {selectedReport.weaknesses?.map((weak, idx) => (
                       <li key={idx} className="text-sm font-medium text-amber-800 flex items-start gap-3">
-                        <span className="text-amber-500 mt-0.5 shrink-0">•</span> 
+                        <span className="text-amber-500 mt-0.5 shrink-0">â€¢</span> 
                         <span className="leading-relaxed">{weak}</span>
                       </li>
                     ))}
@@ -576,3 +576,4 @@ export default function AdminDashboard() {
     );
   }
 }
+

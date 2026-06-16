@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -159,7 +159,7 @@ const Dashboard = () => {
               <Play className="w-4 h-4 fill-white" /> New Interview
             </button>
             <button
-              onClick={() => { logout(); window.location.href = 'https://smartprep.live/login'; }}
+              onClick={() => { logout(); window.location.href = 'https://www.smartprep.live/login'; }}
               className="flex items-center gap-2 text-slate-500 hover:text-red-600 transition-colors px-3 py-2.5 rounded-xl hover:bg-red-50 font-medium text-sm"
             >
               <LogOut className="w-4 h-4" /> Logout
@@ -256,7 +256,7 @@ const Dashboard = () => {
                     <span className="text-4xl font-extrabold text-slate-900">{stats.streak.current}</span>
                     <span className="text-slate-500 font-semibold ml-1.5">day{stats.streak.current !== 1 ? 's' : ''} current</span>
                   </div>
-                  <div className="text-slate-400 font-bold text-xl">·</div>
+                  <div className="text-slate-400 font-bold text-xl">Â·</div>
                   <div>
                     <span className="text-2xl font-bold text-amber-600">{stats.streak.longest}</span>
                     <span className="text-slate-500 font-semibold ml-1.5">day longest</span>
@@ -419,7 +419,7 @@ const Dashboard = () => {
                             className={`text-sm text-slate-700 font-medium cursor-pointer p-2.5 -mx-2.5 rounded-xl transition-all select-none ${isExpanded ? 'bg-emerald-100/30' : 'hover:bg-emerald-50'}`}
                           >
                             <div className="flex items-start gap-3">
-                              <span className="text-emerald-500 font-bold mt-0.5 text-lg leading-none flex-shrink-0">✓</span>
+                              <span className="text-emerald-500 font-bold mt-0.5 text-lg leading-none flex-shrink-0">âœ“</span>
                               <span className={`leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-2'}`}>{s}</span>
                             </div>
                           </li>
@@ -563,3 +563,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -59,7 +59,7 @@ export default function AuthGate() {
                     <h2 className="text-xl font-bold text-red-600 mb-2">Authentication Error</h2>
                     <p className="text-gray-600 mb-4">{error}</p>
                     <button 
-                        onClick={() => window.location.href = 'https://smartprep.live/login'}
+                        onClick={() => window.location.href = 'https://www.smartprep.live/login'}
                         className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
                     >
                         Return to Central Hub
@@ -76,3 +76,4 @@ export default function AuthGate() {
         </div>
     );
 }
+
