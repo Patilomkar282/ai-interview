@@ -41,9 +41,24 @@ const authLimiter = rateLimit({
   message: { error: 'Too many OTP requests. Please wait before trying again.' }
 });
 
-// CORS
+const allowedOrigins = [
+  process.env.CORS_ORIGIN,
+  'https://interview.smartprep.live',
+  'https://alumini.smartprep.live',
+  'https://gd.smartprep.live',
+  'https://www.smartprep.live',
+  'http://localhost:5173',
+  'http://localhost:5175'
+];
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   exposedHeaders: ['x-interview-ended', 'x-interview-id', 'x-question-text', 'x-ai-text', 'x-difficulty']
 }));
