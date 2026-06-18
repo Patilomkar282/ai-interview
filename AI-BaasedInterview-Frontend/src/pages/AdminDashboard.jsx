@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getAdminStats, getAdminInterviews, getInterviewFeedback } from '../api/admin';
 import { BarChart3, Users, Clock, Award, LogOut, ChevronRight, Search, LayoutDashboard, Settings as SettingsIcon, FileText, X, Sliders, Bell, Shield, ArrowLeft, ArrowRight, Save, CheckCircle } from 'lucide-react';
@@ -18,13 +18,6 @@ export default function AdminDashboard() {
   const [totalPages, setTotalPages] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   
-  // Settings State
-  const [settingsSaved, setSettingsSaved] = useState(false);
-  const [settingsForm, setSettingsForm] = useState({
-    maxQuestions: 15,
-    difficulty: 'adaptive',
-    notifications: true
-  });
 
   // Modal state
   const [selectedReport, setSelectedReport] = useState(null);
@@ -78,10 +71,6 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleSaveSettings = () => {
-    setSettingsSaved(true);
-    setTimeout(() => setSettingsSaved(false), 3000);
-  };
 
   const filteredInterviews = interviews.filter(session => 
     (session.userId?.name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -130,14 +119,7 @@ export default function AdminDashboard() {
               <FileText className={`w-5 h-5 ${activeTab === 'interviews' ? 'text-white' : 'text-slate-400 group-hover:text-indigo-600'} transition-colors`} /> 
               All Interviews
             </button>
-            <button 
-              onClick={() => setActiveTab('settings')}
-              className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-300 text-sm font-semibold group relative overflow-hidden ${activeTab === 'settings' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20' : 'text-slate-500 hover:bg-indigo-50 hover:text-indigo-700'}`}
-            >
-              {activeTab === 'settings' && <div className="absolute left-0 top-0 w-1 h-full bg-white rounded-r-md"></div>}
-              <SettingsIcon className={`w-5 h-5 ${activeTab === 'settings' ? 'text-white' : 'text-slate-400 group-hover:text-indigo-600'} transition-colors`} /> 
-              Settings
-            </button>
+
           </div>
         </div>
         
@@ -188,7 +170,7 @@ export default function AdminDashboard() {
             <p className="text-slate-500 text-sm mt-2 font-medium">
               {activeTab === 'dashboard' && 'Overview and analytics of the AI Mock Interview ecosystem.'}
               {activeTab === 'interviews' && 'Detailed log of all candidate sessions and performance metrics.'}
-              {activeTab === 'settings' && 'Configure AI behavior, difficulty models, and platform settings.'}
+
             </p>
           </div>
 
@@ -305,95 +287,7 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          {activeTab === 'settings' && (
-            <div className="animate-in slide-in-from-bottom-8 fade-in duration-700 max-w-4xl mx-auto">
-              <div className="bg-white rounded-3xl border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
-                <div className="p-8 border-b border-slate-100 bg-slate-50/50">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
-                      <Sliders className="w-5 h-5 text-indigo-600" />
-                    </div>
-                    <h2 className="text-xl font-bold text-slate-900">Platform Configuration</h2>
-                  </div>
-                  <p className="text-slate-500 text-sm">Fine-tune the AI Interview parameters and administrative preferences.</p>
-                </div>
-                
-                <div className="p-8 space-y-8">
-                  {/* Setting Group 1 */}
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                      <Shield className="w-4 h-4" /> AI Engine Parameters
-                    </h3>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="p-5 border border-slate-200 rounded-2xl hover:border-indigo-300 transition-colors">
-                        <label className="block text-sm font-bold text-slate-700 mb-2">Max Questions per Session</label>
-                        <select 
-                          value={settingsForm.maxQuestions}
-                          onChange={(e) => setSettingsForm({...settingsForm, maxQuestions: e.target.value})}
-                          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
-                        >
-                          <option value="10">10 Questions (Short)</option>
-                          <option value="15">15 Questions (Standard)</option>
-                          <option value="20">20 Questions (Extended)</option>
-                        </select>
-                        <p className="text-xs text-slate-500 mt-2">Determines how long the mock interview lasts.</p>
-                      </div>
 
-                      <div className="p-5 border border-slate-200 rounded-2xl hover:border-indigo-300 transition-colors">
-                        <label className="block text-sm font-bold text-slate-700 mb-2">Difficulty Scaling</label>
-                        <select 
-                          value={settingsForm.difficulty}
-                          onChange={(e) => setSettingsForm({...settingsForm, difficulty: e.target.value})}
-                          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
-                        >
-                          <option value="adaptive">Adaptive (Based on performance)</option>
-                          <option value="fixed_medium">Fixed Medium</option>
-                          <option value="fixed_hard">Fixed Hard</option>
-                        </select>
-                        <p className="text-xs text-slate-500 mt-2">How AI scales questions during the session.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <hr className="border-slate-100" />
-
-                  {/* Setting Group 2 */}
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                      <Bell className="w-4 h-4" /> Administrative Preferences
-                    </h3>
-                    
-                    <label className="flex items-center justify-between p-5 border border-slate-200 rounded-2xl hover:border-indigo-300 transition-colors cursor-pointer group">
-                      <div>
-                        <p className="text-sm font-bold text-slate-700 group-hover:text-indigo-700 transition-colors">Email Notifications</p>
-                        <p className="text-xs text-slate-500 mt-1">Receive a daily digest of newly completed interviews.</p>
-                      </div>
-                      <div className="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" className="sr-only peer" checked={settingsForm.notifications} onChange={() => setSettingsForm({...settingsForm, notifications: !settingsForm.notifications})} />
-                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-indigo-600 shadow-inner"></div>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="p-6 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-4">
-                  {settingsSaved && (
-                    <span className="flex items-center gap-2 text-emerald-600 font-semibold text-sm animate-in fade-in slide-in-from-right-4">
-                      <CheckCircle className="w-5 h-5" /> Settings Saved!
-                    </span>
-                  )}
-                  <button 
-                    onClick={handleSaveSettings}
-                    className="flex items-center gap-2 px-6 py-3 bg-slate-900 hover:bg-indigo-600 text-white rounded-xl font-bold transition-colors shadow-lg shadow-slate-900/20"
-                  >
-                    <Save className="w-5 h-5" /> Save Configuration
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          )}
 
         </div>
       </div>
