@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -419,7 +419,7 @@ const Dashboard = () => {
                             className={`text-sm text-slate-700 font-medium cursor-pointer p-2.5 -mx-2.5 rounded-xl transition-all select-none ${isExpanded ? 'bg-emerald-100/30' : 'hover:bg-emerald-50'}`}
                           >
                             <div className="flex items-start gap-3">
-                              <span className="text-emerald-500 font-bold mt-0.5 text-lg leading-none flex-shrink-0">âœ“</span>
+                              <span className="text-emerald-500 font-bold mt-0.5 text-lg leading-none flex-shrink-0">✓</span>
                               <span className={`leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-2'}`}>{s}</span>
                             </div>
                           </li>
